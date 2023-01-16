@@ -9,7 +9,7 @@ import frc.robot.subsystems.DriveTrain;
 
 public class ArcadeDrive extends CommandBase {
   /** Creates a new ArcadeDrive. */
-  DriveTrain driveTrain;
+  private DriveTrain driveTrain;
   public ArcadeDrive(DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveTrain);
