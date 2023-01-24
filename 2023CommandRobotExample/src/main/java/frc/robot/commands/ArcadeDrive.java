@@ -13,7 +13,13 @@ public class ArcadeDrive extends CommandBase {
   /** Creates a new ArcadeDrive. */
   private DriveTrain driveTrain;
   private Joystick joyStick;
-  private double lastSpeed;
+  
+  // variables for calculating move and rotate speed
+  private double lastMoveSpeed;
+  private double currentMoveSpeed;
+  private double lastRotateSpeed;
+  private double currentRotateSpeed;
+
   public ArcadeDrive(DriveTrain driveTrain, Joystick joystick) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveTrain);
@@ -25,37 +31,57 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void initialize() {
     driveTrain.arcadeDrive(0, 0);
-    lastSpeed = 0;
+    lastMoveSpeed = 0;
+    currentMoveSpeed = 0;
+    lastRotateSpeed = 0;
+    currentRotateSpeed = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-        //define our movespeed and rotatespeed variables with the get raw method of the joystick
-        double moveSpeed = -joyStick.getRawAxis(Constants.OperatorConstants.JOYSTICK_MOVE_AXIS);//1 to -1 x
-        double rotateSpeed = joyStick.getRawAxis(Constants.OperatorConstants.JOYSTICK_ROTATE_AXIS); // 1 to -1 x2
+
+        lastMoveSpeed = currentMoveSpeed;
+        //define our movespeed and rotatespeed variables with the get raw values of the joystick
+        currentMoveSpeed = -joyStick.getRawAxis(Constants.OperatorConstants.JOYSTICK_MOVE_AXIS);//1 to -1 x
+        currentRotateSpeed = joyStick.getRawAxis(Constants.OperatorConstants.JOYSTICK_ROTATE_AXIS); // 1 to -1 x2
 
         double acceleration = 0.05;
-        if (Math.abs(moveSpeed - lastSpeed) > acceleration){
-          if (moveSpeed > lastSpeed){
-            driveTrain.arcadeDrive(acceleration + lastSpeed, rotateSpeed);
-            lastSpeed = lastSpeed + acceleration;
+
+        // forward - backwards
+        if (Math.abs(currentMoveSpeed - lastMoveSpeed) > acceleration){
+          if (currentMoveSpeed > lastMoveSpeed){
+            currentMoveSpeed = lastMoveSpeed + acceleration;
           } else {
-            driveTrain.arcadeDrive(lastSpeed - acceleration, rotateSpeed);
-            lastSpeed = lastSpeed - acceleration;
+            currentMoveSpeed = lastMoveSpeed - acceleration;
           }
         } else {
-          driveTrain.arcadeDrive(moveSpeed, 0);
-          lastSpeed = moveSpeed;
+          lastMoveSpeed = currentMoveSpeed;
         }
 
+        // rotate
+        if(Math.abs(currentRotateSpeed - lastRotateSpeed) > acceleration){
+          if (currentRotateSpeed > lastRotateSpeed){
+            currentRotateSpeed = lastRotateSpeed + acceleration;
+          } else {
+            currentRotateSpeed = lastRotateSpeed - acceleration;
+          }
+        } else {
+          lastRotateSpeed = currentRotateSpeed;
+        }
+        
+        // pass to arcade drive once calculations are finished above
+        driveTrain.arcadeDrive(currentMoveSpeed, currentRotateSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     driveTrain.arcadeDrive(0, 0); // when done moving, stop
-    lastSpeed = 0;
+    lastMoveSpeed = 0;
+    lastRotateSpeed = 0;
+    currentRotateSpeed = 0;
+    currentMoveSpeed = 0;
   }
 
   // Returns true when the command should end.
