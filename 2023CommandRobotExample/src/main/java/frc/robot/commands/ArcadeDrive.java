@@ -42,6 +42,7 @@ public class ArcadeDrive extends CommandBase {
   public void execute() {
 
         lastMoveSpeed = currentMoveSpeed;
+        lastRotateSpeed = currentRotateSpeed;
         //define our movespeed and rotatespeed variables with the get raw values of the joystick
         currentMoveSpeed = -joyStick.getRawAxis(Constants.OperatorConstants.JOYSTICK_MOVE_AXIS);//1 to -1 x
         currentRotateSpeed = joyStick.getRawAxis(Constants.OperatorConstants.JOYSTICK_ROTATE_AXIS); // 1 to -1 x2
