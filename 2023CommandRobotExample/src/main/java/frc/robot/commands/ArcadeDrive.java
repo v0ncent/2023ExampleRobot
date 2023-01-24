@@ -10,7 +10,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
 public class ArcadeDrive extends CommandBase {
-  /** Creates a new ArcadeDrive. */
+  // subsystem and joystick
   private DriveTrain driveTrain;
   private Joystick joyStick;
   
