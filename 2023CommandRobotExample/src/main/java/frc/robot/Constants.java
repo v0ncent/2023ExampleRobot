@@ -17,6 +17,8 @@ public final class Constants {
     public static final int JOYSTICK_PORT = 0;
     public static final int JOYSTICK_MOVE_AXIS = 1;
     public static final int JOYSTICK_ROTATE_AXIS = 2;
+
+    public static final int CONTROLLER_PORT = 1;
   }
   public static final class MotorConstants {
     public static final int RIGHT_FRONT_VIKTOR = 1;
