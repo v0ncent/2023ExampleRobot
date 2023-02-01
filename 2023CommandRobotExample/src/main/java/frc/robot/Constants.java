@@ -25,5 +25,7 @@ public final class Constants {
     public static final int RIGHT_BACK_VIKTOR = 2;
     public static final int LEFT_FRONT_VIKTOR = 3;
     public static final int LEFT_BACK_VIKTOR = 4;
+
+    
   }
 }

@@ -3,11 +3,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Neo;
 
-public class SpinNeo extends CommandBase {
-
+public class SpinNeos extends CommandBase {
+    
     private Neo neo;
-    public SpinNeo(Neo neo){
-        addRequirements(neo);
+    public SpinNeos(Neo neo){
         this.neo = neo;
     }
 
@@ -18,7 +17,7 @@ public class SpinNeo extends CommandBase {
 
     @Override
     public void execute(){
-        this.neo.spinNeo(1.0);
+        this.neo.spinNeos(1.0);
     }
 
     @Override
@@ -30,4 +29,5 @@ public class SpinNeo extends CommandBase {
     public boolean isFinished(){
         return false;
     }
+    
 }

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.SpinNeo;
+import frc.robot.commands.SpinNeos;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Neo;
 
@@ -66,6 +67,8 @@ public class RobotContainer {
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
     XBOX.x().whileTrue(new SpinNeo(NEO));
+
+    XBOX.b().whileTrue(new SpinNeos(NEO));
     
   }
 
